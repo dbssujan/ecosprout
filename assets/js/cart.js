@@ -5,7 +5,7 @@ async function addToCart(plantId, quantity = 1) {
         formData.append('plant_id', plantId);
         formData.append('quantity', quantity);
 
-        const res = await fetch(, {
+        const res = await fetch(`${APP_URL}/api/cart.php`, {
             method: 'POST',
             body: formData
         });
@@ -13,7 +13,7 @@ async function addToCart(plantId, quantity = 1) {
 
         if (data.status === 'success') {
             updateCartBadge(data.total_items);
-            showToast(`Added to cart! 🌿 Total items: ${data.total_items}`, 'success');
+            showToast(`Added to cart! Total items: ${data.total_items}`, 'success');
         } else {
             showToast(data.message || 'Could not add to cart', 'error');
         }
@@ -30,7 +30,7 @@ async function updateCartQuantity(plantId, quantity) {
         formData.append('plant_id', plantId);
         formData.append('quantity', quantity);
 
-        const res = await fetch(, {
+        const res = await fetch(`${APP_URL}/api/cart.php`, {
             method: 'POST',
             body: formData
         });
@@ -50,7 +50,7 @@ async function removeFromCart(plantId) {
         formData.append('action', 'remove');
         formData.append('plant_id', plantId);
 
-        const res = await fetch(, {
+        const res = await fetch(`${APP_URL}/api/cart.php`, {
             method: 'POST',
             body: formData
         });

@@ -78,7 +78,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <?php if ($successOrderId): ?>
         <div style="background: var(--surface-white); border-radius: var(--radius-lg); padding: 3rem; text-align: center; border: 1px solid var(--border-color); max-width: 600px; margin: 2rem auto;">
-            <div style="font-size: 3.5rem;">🎉</div>
+            <div style="margin-bottom: 1rem; color: var(--success);">
+                <svg width="64" height="64" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            </div>
             <h2 style="color: var(--primary-dark); margin: 1rem 0;">Order #<?= $successOrderId ?> Confirmed!</h2>
             <p style="color: var(--text-muted); margin-bottom: 2rem;">Thank you, <?= htmlspecialchars($user['full_name']) ?>. Our Kegalle nursery team is packing your flora with care. We will contact you at your provided number prior to delivery.</p>
             <a href="<?= APP_URL ?>/pages/catalog.php" class="btn btn-primary">Continue Shopping</a>

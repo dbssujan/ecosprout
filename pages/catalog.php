@@ -5,7 +5,7 @@ require_once __DIR__ . '/../includes/header.php';
 
 $pdo = Database::getConnection();
 $categories = $pdo->query("SELECT * FROM categories ORDER BY id ASC")->fetchAll();
-$plants = $pdo->query("SELECT p.*, c.name AS category_name FROM plants p JOIN categories c ON p.category_id = c.id WHERE p.is_active = 1 ORDER BY p.id DESC")->fetchAll();
+$plants = $pdo->query("SELECT p.*, c.name AS category_name, c.slug AS category_slug FROM plants p JOIN categories c ON p.category_id = c.id WHERE p.is_active = 1 ORDER BY p.id DESC")->fetchAll();
 ?>
 
 <style>
@@ -54,7 +54,7 @@ $plants = $pdo->query("SELECT p.*, c.name AS category_name FROM plants p JOIN ca
     <div class="search-filter-bar" style="margin-bottom: 2rem; background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border: 1px solid #e5e7eb;">
         <div class="search-input-wrap" style="margin-bottom: 1.5rem;">
             <input type="text" id="plantSearchInput" class="form-control"
-                placeholder="🔍 Search plants by common or botanical name..." autocomplete="off" style="width: 100%; padding: 12px 15px; border-radius: 8px; border: 1px solid #d1d5db; font-size: 1rem;">
+                placeholder="Search plants by common or botanical name..." autocomplete="off" style="width: 100%; padding: 12px 15px; border-radius: 8px; border: 1px solid #d1d5db; font-size: 1rem;">
         </div>
         <div class="filter-pills">
             <button class="filter-pill active" data-category="all">All Flora</button>
@@ -91,14 +91,16 @@ $plants = $pdo->query("SELECT p.*, c.name AS category_name FROM plants p JOIN ca
                             <?= htmlspecialchars($plant['name']) ?>
                         </h3>
                         
-                        <div class="plant-care-badges" style="display: flex; gap: 6px; flex-wrap: wrap; margin-top: 0.5rem;">
-                            <span class="care-badge" style="background: #fef3c7; color: #d97706; padding: 3px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 500;">
-                                ☀️ <?= htmlspecialchars($plant['care_sunlight'] ?? 'N/A') ?>
-                            </span>
-                            <span class="care-badge" style="background: #e0f2fe; color: #0284c7; padding: 3px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 500;">
-                                💧 <?= htmlspecialchars($plant['care_water'] ?? 'N/A') ?>
-                            </span>
-                        </div>
+                        <?php if (($plant['category_slug'] ?? '') !== 'tools-accessories' && !empty($plant['care_sunlight']) && $plant['care_sunlight'] !== 'Not Applicable' && $plant['care_sunlight'] !== 'N/A'): ?>
+                            <div class="plant-care-badges" style="display: flex; gap: 6px; flex-wrap: wrap; margin-top: 0.5rem;">
+                                <span class="care-badge" style="background: #fef3c7; color: #d97706; padding: 3px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 500;">
+                                    <?= htmlspecialchars($plant['care_sunlight']) ?>
+                                </span>
+                                <span class="care-badge" style="background: #e0f2fe; color: #0284c7; padding: 3px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 500;">
+                                    <?= htmlspecialchars($plant['care_water'] ?? 'Moderate') ?>
+                                </span>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </a>
 

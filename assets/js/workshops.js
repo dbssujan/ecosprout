@@ -6,7 +6,7 @@ function initiateWorkshopBooking(workshopId, title, fee) {
 
     if (workshopIdInput) workshopIdInput.value = workshopId;
     if (workshopTitleSpan) workshopTitleSpan.textContent = title;
-    if (workshopFeeSpan) workshopFeeSpan.textContent = `LKR ${Number(fee).toLocaleString()}`;
+    if (workshopFeeSpan) workshopFeeSpan.textContent = `LKR ${Number(fee).toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
 
     openModal(modalId);
 }
@@ -17,12 +17,13 @@ document.addEventListener('DOMContentLoaded', () => {
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
             const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
             submitBtn.disabled = true;
-            submitBtn.textContent = 'Processing Registration...';
+            submitBtn.textContent = 'Processing Application...';
 
             try {
                 const formData = new FormData(form);
-                const res = await fetch(, {
+                const res = await fetch(`${APP_URL}/api/workshops.php`, {
                     method: 'POST',
                     body: formData
                 });
@@ -33,15 +34,23 @@ document.addEventListener('DOMContentLoaded', () => {
                     closeModal('workshopModal');
                     setTimeout(() => window.location.reload(), 1500);
                 } else {
-                    showToast(data.message || 'Booking failed', 'error');
+                    showToast(data.message || 'Application failed', 'error');
                 }
             } catch (err) {
                 console.error(err);
                 showToast('Failed to connect to server', 'error');
             } finally {
                 submitBtn.disabled = false;
-                submitBtn.textContent = 'Confirm Registration';
+                submitBtn.textContent = originalText;
             }
         });
+    }
+
+    // Auto-trigger modal if book_id is present in URL query params
+    const urlParams = new URLSearchParams(window.location.search);
+    const bookId = urlParams.get('book_id');
+    if (bookId) {
+        const btn = document.querySelector(`button[onclick*="initiateWorkshopBooking(${bookId},"]`);
+        if (btn) btn.click();
     }
 });

@@ -7,7 +7,7 @@ $error = $_GET['error'] ?? '';
 
 <div class="container" style="padding-top: 4rem; max-width: 440px;">
     <div style="background: var(--surface-white); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 2.5rem; box-shadow: var(--shadow-sm);">
-        <h2 style="margin-bottom: 0.5rem; text-align: center;">Welcome Back 🌱</h2>
+        <h2 style="margin-bottom: 0.5rem; text-align: center;">Welcome Back</h2>
         <p style="text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">Access your EcoSprout customer or staff portal</p>
 
         <?php if ($error): ?>

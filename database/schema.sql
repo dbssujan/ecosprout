@@ -42,7 +42,6 @@ CREATE TABLE plants (
     stock_quantity INT NOT NULL DEFAULT 0,
     image_url VARCHAR(255) DEFAULT 'assets/img/default_plant.png',
     is_featured BOOLEAN DEFAULT FALSE,
-    is_active BOOLEAN DEFAULT TRUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE RESTRICT ON UPDATE CASCADE,
     INDEX idx_plant_category (category_id),
@@ -229,4 +228,4 @@ INSERT INTO inquiries (user_id, customer_name, customer_email, subject, message,
 -- Educational Blog Posts Seed
 INSERT INTO blog_posts (author_id, title, slug, category, content) VALUES
 (2, 'Monsoon Gardening in Kegalle: Drainage & Fungus Control', 'monsoon-gardening-kegalle', 'Seasonal Guides', 'During heavy seasonal rains in the Sabaragamuwa region, ensure potting soil contains perlite and coarse river sand to prevent root rot in potted indoor flora. Elevated stands prevent waterlogging.'),
-(2, '5 Essential Indoor Plants for Natural Air Purification', 'indoor-plants-air-purification', 'Plant Care Tips', 'Snake Plants and Peace Lilies absorb benzene and formaldehyde from newly painted rooms and indoor spaces with minimal sunlight demands.');
+(2, '5 Essential Indoor Plants for Natural Air Purification', 'indoor-plants-air-purification', 'Plant Care Tips', 'Snake Plants and Peace Lilies absorb benzene and formaldehyde from newly painted rooms and indoor spaces with minimal sunlight demands.');

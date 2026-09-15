@@ -9,7 +9,7 @@ $error = $_GET['error'] ?? '';
 <div class="container" style="padding-top: 3rem; max-width: 500px;">
     <div
         style="background: var(--surface-white); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 2.5rem; box-shadow: var(--shadow-sm);">
-        <h2 style="margin-bottom: 0.5rem; text-align: center;">Join EcoSprout 🌿</h2>
+        <h2 style="margin-bottom: 0.5rem; text-align: center;">Join EcoSprout</h2>
         <p style="text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">Create an
             account to order flora, book workshops, and access care guides</p>
 

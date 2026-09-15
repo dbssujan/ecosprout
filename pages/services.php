@@ -58,7 +58,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="services-grid">
         <?php foreach ($services as $srv): ?>
             <div class="service-card">
-                <div class="service-icon">🌱</div>
                 <h3><?= htmlspecialchars($srv['title']) ?></h3>
                 <p style="color: var(--text-muted); margin-bottom: 1.5rem;"><?= htmlspecialchars($srv['short_desc']) ?></p>
                 <div style="font-weight: 700; color: var(--primary-dark);"><?= htmlspecialchars($srv['price_estimate']) ?></div>

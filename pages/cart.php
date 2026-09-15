@@ -33,7 +33,9 @@ if (!empty($_SESSION['cart'])) {
 
     <?php if (empty($cartItems)): ?>
         <div style="background: var(--surface-white); border-radius: var(--radius-lg); padding: 4rem; text-align: center; border: 1px solid var(--border-color);">
-            <div style="font-size: 4rem; margin-bottom: 1rem;">🪴</div>
+            <div style="margin-bottom: 1.5rem; color: var(--text-muted);">
+                <svg width="64" height="64" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+            </div>
             <h2>Your cart is currently empty</h2>
             <p class="text-muted" style="margin-bottom: 1.5rem;">Explore our nursery catalog to discover healthy varieties for your garden.</p>
             <a href="<?= APP_URL ?>/pages/catalog.php" class="btn btn-primary">Browse Catalogue</a>

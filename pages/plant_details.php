@@ -5,7 +5,7 @@ require_once __DIR__ . '/../includes/header.php';
 $pdo = Database::getConnection();
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
-$stmt = $pdo->prepare("SELECT p.*, c.name AS category_name 
+$stmt = $pdo->prepare("SELECT p.*, c.name AS category_name, c.slug AS category_slug 
                        FROM plants p 
                        JOIN categories c ON p.category_id = c.id 
                        WHERE p.id = :id AND p.is_active = 1");
@@ -60,14 +60,16 @@ if (!$plant) {
             </div>
 
             <!-- Environmental Requirements -->
-            <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 2rem;">
-                <span style="background: #fef3c7; color: #d97706; padding: 6px 12px; border-radius: 6px; font-size: 0.85rem; font-weight: 600;">
-                    ☀️ <?= htmlspecialchars($plant['care_sunlight'] ?? 'Full Sun') ?>
-                </span>
-                <span style="background: #e0f2fe; color: #0284c7; padding: 6px 12px; border-radius: 6px; font-size: 0.85rem; font-weight: 600;">
-                    💧 <?= htmlspecialchars($plant['care_water'] ?? 'Moderate') ?>
-                </span>
-            </div>
+            <?php if (($plant['category_slug'] ?? '') !== 'tools-accessories' && !empty($plant['care_sunlight']) && $plant['care_sunlight'] !== 'Not Applicable' && $plant['care_sunlight'] !== 'N/A'): ?>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 2rem;">
+                    <span style="background: #fef3c7; color: #d97706; padding: 6px 12px; border-radius: 6px; font-size: 0.85rem; font-weight: 600;">
+                        <?= htmlspecialchars($plant['care_sunlight']) ?>
+                    </span>
+                    <span style="background: #e0f2fe; color: #0284c7; padding: 6px 12px; border-radius: 6px; font-size: 0.85rem; font-weight: 600;">
+                        <?= htmlspecialchars($plant['care_water'] ?? 'Moderate') ?>
+                    </span>
+                </div>
+            <?php endif; ?>
 
             <!-- Description -->
             <div style="border-top: 1px solid #f3f4f6; padding-top: 1.5rem; margin-bottom: 1.75rem;">
@@ -81,11 +83,11 @@ if (!$plant) {
             <div style="margin-bottom: 1.5rem;">
                 <?php if ($plant['stock_quantity'] > 0): ?>
                     <span style="color: #059669; font-weight: 600; font-size: 0.95rem;">
-                        ✓ In Stock (<?= $plant['stock_quantity'] ?> available)
+                        In Stock (<?= $plant['stock_quantity'] ?> available)
                     </span>
                 <?php else: ?>
                     <span style="color: #dc2626; font-weight: 600; font-size: 0.95rem;">
-                        ✕ Currently Out of Stock
+                        Currently Out of Stock
                     </span>
                 <?php endif; ?>
             </div>

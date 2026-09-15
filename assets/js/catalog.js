@@ -72,14 +72,16 @@ document.addEventListener('DOMContentLoaded', () => {
                             ${plant.name}
                         </h3>
                         
-                        <div class="plant-care-badges" style="display: flex; gap: 6px; flex-wrap: wrap; margin-top: 0.5rem;">
-                            <span class="care-badge" style="background: #fef3c7; color: #d97706; padding: 3px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 500;">
-                                ☀️ ${plant.care_sunlight || 'N/A'}
-                            </span>
-                            <span class="care-badge" style="background: #e0f2fe; color: #0284c7; padding: 3px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 500;">
-                                💧 ${plant.care_water || 'N/A'}
-                            </span>
-                        </div>
+                        ${(plant.category_slug !== 'tools-accessories' && plant.care_sunlight && plant.care_sunlight !== 'Not Applicable' && plant.care_sunlight !== 'N/A') ? `
+                            <div class="plant-care-badges" style="display: flex; gap: 6px; flex-wrap: wrap; margin-top: 0.5rem;">
+                                <span class="care-badge" style="background: #fef3c7; color: #d97706; padding: 3px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 500;">
+                                    ${plant.care_sunlight}
+                                </span>
+                                <span class="care-badge" style="background: #e0f2fe; color: #0284c7; padding: 3px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 500;">
+                                    ${plant.care_water || 'Moderate'}
+                                </span>
+                            </div>
+                        ` : ''}
                     </div>
                 </a>
 

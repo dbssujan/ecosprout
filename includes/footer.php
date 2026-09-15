@@ -2,10 +2,10 @@
 <footer class="footer-wrapper">
     <div class="container footer-grid">
         <div class="footer-col brand-col">
-            <div class="footer-brand">🌱 Eco<strong>Sprout</strong></div>
+            <div class="footer-brand">Eco<strong>Sprout</strong></div>
             <p>Kegalle's dedicated plant nursery & landscaping solution center. Empowering plant enthusiasts with healthy flora, botanical education, and sustainable gardening practices.</p>
-            <p class="store-address">📍 <?= APP_LOCATION ?></p>
-            <p>📞 +94 35 222 3456 | ✉️ contact@ecosprout.lk</p>
+            <p class="store-address"><?= APP_LOCATION ?></p>
+            <p>+94 35 222 3456 | contact@ecosprout.lk</p>
         </div>
         <div class="footer-col">
             <h4>Quick Navigation</h4>
