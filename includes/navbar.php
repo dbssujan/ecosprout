@@ -39,6 +39,7 @@ $cartCount = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
                             <span class="role-pill"><?= htmlspecialchars($currentUser['role']) ?></span>
                         </button>
                         <div class="dropdown-menu" id="userDropdownMenu">
+                            <a href="<?= APP_URL ?>/pages/profile.php">My Profile</a>
                             <?php if (has_role(['admin'])): ?>
                                 <a href="<?= APP_URL ?>/pages/admin_dashboard.php">Admin Dashboard</a>
                             <?php endif; ?>

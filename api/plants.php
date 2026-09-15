@@ -8,17 +8,23 @@ $search = isset($_GET['q']) ? trim($_GET['q']) : '';
 $category = isset($_GET['category']) ? trim($_GET['category']) : '';
 
 try {
+    // Only fetch active plants!
     $sql = "SELECT p.*, c.name AS category_name, c.slug AS category_slug 
             FROM plants p 
             JOIN categories c ON p.category_id = c.id 
-            WHERE 1=1";
+            WHERE p.is_active = 1";
     $params = [];
 
+    // Search filter with unique PDO placeholders
     if ($search !== '') {
-        $sql .= " AND (p.name LIKE :q OR p.botanical_name LIKE :q OR p.description LIKE :q)";
-        $params[':q'] = '%' . $search . '%';
+        $sql .= " AND (p.name LIKE :q1 OR p.botanical_name LIKE :q2 OR p.description LIKE :q3)";
+        $searchTerm = '%' . $search . '%';
+        $params[':q1'] = $searchTerm;
+        $params[':q2'] = $searchTerm;
+        $params[':q3'] = $searchTerm;
     }
 
+    // Category filter
     if ($category !== '' && $category !== 'all') {
         $sql .= " AND c.slug = :category";
         $params[':category'] = $category;
@@ -28,17 +34,13 @@ try {
 
     $stmt = $pdo->prepare($sql);
     $stmt->execute($params);
-    $plants = $stmt->fetchAll();
+    $plants = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    echo json_encode([
-        'status' => 'success',
-        'count'  => count($plants),
-        'plants' => $plants
-    ]);
+    // THE FIX: Just send back the raw array so JavaScript's .map() function works!
+    echo json_encode($plants);
+
 } catch (PDOException $e) {
     http_response_code(500);
-    echo json_encode([
-        'status'  => 'error',
-        'message' => 'Failed to query botanical inventory: ' . $e->getMessage()
-    ]);
+    // Return an empty array on error so JS doesn't crash
+    echo json_encode([]); 
 }
