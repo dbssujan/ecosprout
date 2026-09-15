@@ -42,6 +42,7 @@ CREATE TABLE plants (
     stock_quantity INT NOT NULL DEFAULT 0,
     image_url VARCHAR(255) DEFAULT 'assets/img/default_plant.png',
     is_featured BOOLEAN DEFAULT FALSE,
+    is_active BOOLEAN DEFAULT TRUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE RESTRICT ON UPDATE CASCADE,
     INDEX idx_plant_category (category_id),
