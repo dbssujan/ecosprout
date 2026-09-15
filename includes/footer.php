@@ -43,7 +43,7 @@
 </footer>
 
 <div id="toastContainer" class="toast-container"></div>
-
+<script src="<?= APP_URL ?>/assets/js/cart.js"></script>
 <script src="<?= APP_URL ?>/assets/js/main.js"></script>
 <?php if (isset($extraScript)): ?>
     <script src="<?= APP_URL ?>/assets/js/<?= htmlspecialchars($extraScript) ?>"></script>
